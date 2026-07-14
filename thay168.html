@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pattarasai Jaipong</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sarabun:wght@400;500;600&display=swap');
+
+  :root{
+    --bg-1:#1a1025;
+    --bg-2:#241733;
+    --gold:#e8b86d;
+    --teal:#5ec8c0;
+    --ink:#f3ecf7;
+    --muted:#b6a9c4;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    height:100%;
+    background:
+      radial-gradient(circle at 20% 15%, rgba(94,200,192,0.10), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(232,184,109,0.10), transparent 50%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-2));
+    font-family:'Sarabun', sans-serif;
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    position:relative;
+  }
+
+  /* faint circuit-line texture, quiet, in the background */
+  .grid-lines{
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size:42px 42px;
+    pointer-events:none;
+  }
+
+  .card{
+    position:relative;
+    width:min(92vw, 460px);
+    padding:52px 40px 44px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(6px);
+    text-align:center;
+    box-shadow:0 30px 60px rgba(0,0,0,0.35);
+  }
+
+  .eyebrow{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:12px;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin-bottom:18px;
+  }
+
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:clamp(28px, 6vw, 38px);
+    line-height:1.15;
+    margin:0 0 6px;
+    letter-spacing:-0.01em;
+  }
+
+  .nickname{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:15px;
+    color:var(--gold);
+    letter-spacing:0.06em;
+    margin-bottom:26px;
+  }
+
+  .nickname::before, .nickname::after{
+    content:'—';
+    color:var(--muted);
+    margin:0 8px;
+    opacity:0.6;
+  }
+
+  .greet-box{
+    min-height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:26px;
+    font-size:15px;
+    color:var(--muted);
+    line-height:1.6;
+    padding:0 6px;
+    transition:opacity 0.4s ease;
+  }
+
+  .greet-box.hidden-msg{ opacity:0; }
+  .greet-box p{ margin:0; opacity:0; transform:translateY(6px); animation:rise 0.5s ease forwards; }
+  .greet-box p b{ color:var(--ink); }
+
+  @keyframes rise{
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  button{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:500;
+    font-size:14px;
+    letter-spacing:0.02em;
+    color:var(--bg-1);
+    background:linear-gradient(120deg, var(--teal), var(--gold));
+    border:none;
+    padding:14px 30px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow:0 10px 24px rgba(94,200,192,0.18);
+  }
+
+  button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 30px rgba(94,200,192,0.28);
+  }
+
+  button:active{ transform:translateY(0); }
+
+  button:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  .spark{
+    position:fixed;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    pointer-events:none;
+    animation:fly 0.9s ease-out forwards;
+  }
+
+  @keyframes fly{
+    to{
+      transform:translate(var(--dx), var(--dy)) scale(0);
+      opacity:0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .greet-box p{ animation:none; opacity:1; transform:none; }
+    .spark{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-lines"></div>
+
+<div class="card">
+  <div class="eyebrow">Hello, World</div>
+  <h1>Pattarasai Jaipong</h1>
+  <div class="nickname">thay168</div>
+
+  <div class="greet-box hidden-msg" id="greetBox"></div>
+
+  <button id="greetBtn" onclick="sayHello(event)">กดทักทายหน่อยสิ</button>
+</div>
+
+<script>
+  const messages = [
+    "สวัสดีครับ ผม <b>Pattarasai</b> หรือเรียกสั้น ๆ ว่า <b>thay168</b> ก็ได้ 👋",
+    "ตอนนี้กำลังลุยโปรเจกต์ ESP32 IoT Dashboard อยู่ครับ 🔧",
+    "ว่างๆ ก็เล่น Path of Exile 2 กับฝึกภาษาจีนไปด้วย 🎮📖",
+    "ยินดีที่ได้รู้จักนะครับ!"
+  ];
+
+  let msgIndex = 0;
+  const box = document.getElementById('greetBox');
+  const btn = document.getElementById('greetBtn');
+
+  function sayHello(e){
+    box.classList.remove('hidden-msg');
+    box.innerHTML = '<p>' + messages[msgIndex] + '</p>';
+    msgIndex = (msgIndex + 1) % messages.length;
+
+    burst(e.clientX, e.clientY);
+
+    btn.textContent = msgIndex === 0 ? 'กดทักทายหน่อยสิ' : 'กดอีกที ➜';
+  }
+
+  function burst(x, y){
+    const colors = ['#5ec8c0', '#e8b86d', '#f3ecf7'];
+    for(let i=0; i<14; i++){
+      const s = document.createElement('div');
+      s.className = 'spark';
+      const angle = (Math.PI * 2 * i) / 14;
+      const dist = 60 + Math.random() * 40;
+      s.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+      s.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+      s.style.left = x + 'px';
+      s.style.top = y + 'px';
+      s.style.background = colors[i % colors.length];
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 900);
+    }
+  }
+</script>
+
+</body>
+</html>
