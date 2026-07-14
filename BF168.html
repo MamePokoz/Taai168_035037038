@@ -3,191 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Supalerk</title>
+<title>BF168</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&family=Kanit:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Mali:wght@400;600;700&display=swap');
 
   :root{
-    --cream: #FFF8EC;
-    --ink: #241A2E;
-    --pink: #FF6B9D;
-    --yellow: #FFD23F;
-    --mint: #6FE7C4;
-    --purple: #7C5CFF;
-    --line: #241A2E;
+    --bg: #0A0612;
+    --screen: #150C24;
+    --neon: #FF3EA5;
+    --cyan: #4CF3E0;
+    --ink: #F4EEFF;
+    --dim: #8A7BA8;
   }
 
   *{ box-sizing:border-box; margin:0; padding:0; }
 
   html, body{
     min-height:100%;
-    background: var(--purple);
-    background-image:
-      radial-gradient(circle at 15% 20%, rgba(255,255,255,0.12) 0, transparent 3px),
-      radial-gradient(circle at 45% 65%, rgba(255,255,255,0.12) 0, transparent 3px),
-      radial-gradient(circle at 75% 30%, rgba(255,255,255,0.12) 0, transparent 3px),
-      radial-gradient(circle at 85% 80%, rgba(255,255,255,0.12) 0, transparent 3px),
-      radial-gradient(circle at 30% 85%, rgba(255,255,255,0.12) 0, transparent 3px);
-    background-size: 140px 140px;
-    font-family: 'Kanit', sans-serif;
-    color: var(--ink);
+    background: var(--bg);
     display:flex;
     align-items:center;
     justify-content:center;
-    padding: 30px;
-    overflow-x:hidden;
-  }
-
-  .stage{ position:relative; width:min(430px, 94vw); }
-
-  .sticker{
-    position:absolute;
-    top:-18px; right:-14px;
-    z-index:5;
-    width:86px; height:86px;
-    background: var(--yellow);
-    border:3px solid var(--line);
-    border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    text-align:center;
+    padding:30px;
     font-family:'Mali', sans-serif;
-    font-weight:700;
-    font-size:12.5px;
-    line-height:1.25;
-    transform: rotate(14deg) scale(0);
-    animation: pop 0.5s cubic-bezier(.34,1.56,.64,1) 0.9s forwards;
-    box-shadow: 3px 4px 0 var(--line);
+    color: var(--ink);
   }
 
-  @keyframes pop{ to{ transform: rotate(14deg) scale(1); } }
-
-  .card{
+  .screen{
     position:relative;
-    background: var(--cream);
-    border: 3px solid var(--line);
-    border-radius: 20px;
-    padding: 30px 28px 26px;
-    box-shadow: 8px 10px 0 var(--line);
-    transform: rotate(-1.5deg) translateY(14px);
-    opacity:0;
-    animation: rise 0.6s cubic-bezier(.22,1,.36,1) forwards;
-  }
-
-  @keyframes rise{
-    to{ opacity:1; transform: rotate(-1.5deg) translateY(0); }
-  }
-
-  .ribbon{
-    display:inline-block;
-    background: var(--pink);
-    border:2px solid var(--line);
-    border-radius: 999px;
-    padding: 5px 14px;
-    font-family:'Mali', sans-serif;
-    font-weight:700;
-    font-size: 13px;
-    transform: rotate(-2deg);
-    margin-bottom: 18px;
-  }
-
-  h1{
-    font-family:'Mali', sans-serif;
-    font-weight:700;
-    font-size: clamp(30px, 8vw, 38px);
-    line-height:1.15;
-  }
-
-  .subtitle{
-    margin-top:6px;
-    font-size:14.5px;
-    color:#5B4B6B;
-  }
-
-  .divider{
-    margin: 20px 0 18px;
-    border-top: 2px dashed #D8CBE8;
-  }
-
-  .stat{ margin-bottom: 12px; }
-
-  .stat-label{
-    display:flex;
-    justify-content:space-between;
-    font-size: 13px;
-    margin-bottom: 5px;
-  }
-
-  .stat-label b{ font-family:'Mali', sans-serif; }
-
-  .bar-track{
-    height: 12px;
-    background: #F0E6D6;
-    border: 2px solid var(--line);
-    border-radius: 999px;
+    width:min(420px, 92vw);
+    background: var(--screen);
+    border: 3px solid var(--cyan);
+    border-radius: 14px;
+    padding: 46px 30px 38px;
+    text-align:center;
+    box-shadow:
+      0 0 0 6px rgba(76,243,224,0.08),
+      0 0 40px rgba(76,243,224,0.15),
+      0 25px 60px -20px rgba(0,0,0,0.7);
     overflow:hidden;
+    opacity:0;
+    animation: flicker-in 0.7s steps(6) forwards;
   }
 
-  .bar-fill{
-    height:100%;
-    width:0%;
-    border-radius: 999px 0 0 999px;
-    animation: fill 1s cubic-bezier(.22,1,.36,1) forwards;
-    animation-delay: 0.4s;
+  @keyframes flicker-in{
+    0%{ opacity:0; }
+    30%{ opacity:0.4; }
+    45%{ opacity:0.1; }
+    60%{ opacity:0.8; }
+    100%{ opacity:1; }
   }
 
-  .bar-fill.a{ background: var(--mint); }
-  .bar-fill.b{ background: var(--pink); }
-  .bar-fill.c{ background: var(--yellow); }
-  .bar-fill.d{ background: var(--purple); }
+  .screen::before{
+    content:"";
+    position:absolute; inset:0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.035) 0px,
+      rgba(255,255,255,0.035) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events:none;
+  }
 
-  @keyframes fill{ to{ width: var(--w); } }
+  .label{
+    font-family:'Press Start 2P', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    margin-bottom: 22px;
+  }
 
-  .quote{
+  .callsign{
+    font-family:'Press Start 2P', monospace;
+    font-size: clamp(30px, 9vw, 42px);
+    color: var(--neon);
+    text-shadow:
+      0 0 8px rgba(255,62,165,0.75),
+      0 0 22px rgba(255,62,165,0.4);
+    letter-spacing: 0.04em;
+  }
+
+  .cursor{
+    display:inline-block;
+    width: 0.5em;
+    background: var(--neon);
+    margin-left: 4px;
+    animation: blink 1s steps(1) infinite;
+    vertical-align: -0.12em;
+    height: 0.85em;
+  }
+
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .aka{
     margin-top: 20px;
-    background: #241A2E;
-    color: var(--cream);
-    border-radius: 16px 16px 16px 4px;
-    padding: 14px 16px;
-    font-family:'Mali', sans-serif;
+    font-size: 15px;
+    color: var(--cyan);
+  }
+
+  .aka b{ color: var(--ink); }
+
+  .rule{
+    margin: 22px auto;
+    width: 60%;
+    border-top: 1px dashed rgba(76,243,224,0.25);
+  }
+
+  .caption{
     font-size: 14.5px;
-    line-height: 1.55;
+    color: var(--dim);
+    line-height: 1.6;
+    max-width: 30ch;
+    margin: 0 auto;
+  }
+
+  .press-start{
+    margin-top: 26px;
+    font-family:'Press Start 2P', monospace;
+    font-size: 10px;
+    color: var(--cyan);
+    animation: blink 1.4s steps(1) infinite;
   }
 
   @media (prefers-reduced-motion: reduce){
-    .card, .sticker, .bar-fill{ animation:none; opacity:1; transform:none; width:var(--w); }
-    .card{ transform: rotate(-1.5deg); }
+    .screen{ animation:none; opacity:1; }
+    .cursor, .press-start{ animation:none; }
   }
 </style>
 </head>
 <body>
-  <div class="stage">
-    <div class="sticker">ผ่าน QC<br>100%</div>
-    <div class="card">
-      <span class="ribbon">🎮 ผู้เล่นใหม่เข้าร่วมเซิร์ฟเวอร์</span>
-      <h1>Supalerk<br>Audomkasob</h1>
-      <p class="subtitle">อาชีพ: มนุษย์ | เลเวล: กำลังโหลด... | เผ่าพันธุ์: ขี้เล่นแต่จริงจังตอนงานเข้า</p>
-
-      <div class="divider"></div>
-
-      <div class="stat">
-        <div class="stat-label"><b>พลังฮา</b><span>92%</span></div>
-        <div class="bar-track"><div class="bar-fill a" style="--w:92%"></div></div>
-      </div>
-      <div class="stat">
-        <div class="stat-label"><b>ความขยัน (เฉพาะตอนใกล้เดดไลน์)</b><span>78%</span></div>
-        <div class="bar-track"><div class="bar-fill b" style="--w:78%"></div></div>
-      </div>
-      <div class="stat">
-        <div class="stat-label"><b>ระดับติ่งกาแฟ</b><span>85%</span></div>
-        <div class="bar-track"><div class="bar-fill c" style="--w:85%"></div></div>
-      </div>
-      <div class="stat">
-        <div class="stat-label"><b>ความน่ารัก (self-report ไม่มี bias)</b><span>100%</span></div>
-        <div class="bar-track"><div class="bar-fill d" style="--w:100%"></div></div>
-      </div>
-
-      <div class="quote">"ยังไม่รู้จะพิมพ์อะไรแนะนำตัว เลยมาปั่นการ์ดเกมแทน ใครอ่านถึงตรงนี้ถือว่าเราเป็นเพื่อนกันแล้วนะ 😄"</div>
-    </div>
+  <div class="screen">
+    <div class="label">ENTER YOUR NAME</div>
+    <div class="callsign">BF168<span class="cursor"></span></div>
+    <div class="aka">a.k.a. <b>Supalerk Audomkasob</b></div>
+    <div class="rule"></div>
+    <p class="caption">รหัสลับที่ไม่มีใครถาม แต่ขอฝากไว้ในใจทุกคนด้วยแล้วกัน</p>
+    <div class="press-start">PRESS START</div>
   </div>
 </body>
 </html>
