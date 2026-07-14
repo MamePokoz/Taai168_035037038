@@ -1,11 +1,193 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supalerk</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supalerk</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&family=Kanit:wght@400;500;600&display=swap');
+
+  :root{
+    --cream: #FFF8EC;
+    --ink: #241A2E;
+    --pink: #FF6B9D;
+    --yellow: #FFD23F;
+    --mint: #6FE7C4;
+    --purple: #7C5CFF;
+    --line: #241A2E;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html, body{
+    min-height:100%;
+    background: var(--purple);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(255,255,255,0.12) 0, transparent 3px),
+      radial-gradient(circle at 45% 65%, rgba(255,255,255,0.12) 0, transparent 3px),
+      radial-gradient(circle at 75% 30%, rgba(255,255,255,0.12) 0, transparent 3px),
+      radial-gradient(circle at 85% 80%, rgba(255,255,255,0.12) 0, transparent 3px),
+      radial-gradient(circle at 30% 85%, rgba(255,255,255,0.12) 0, transparent 3px);
+    background-size: 140px 140px;
+    font-family: 'Kanit', sans-serif;
+    color: var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 30px;
+    overflow-x:hidden;
+  }
+
+  .stage{ position:relative; width:min(430px, 94vw); }
+
+  .sticker{
+    position:absolute;
+    top:-18px; right:-14px;
+    z-index:5;
+    width:86px; height:86px;
+    background: var(--yellow);
+    border:3px solid var(--line);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    font-family:'Mali', sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    line-height:1.25;
+    transform: rotate(14deg) scale(0);
+    animation: pop 0.5s cubic-bezier(.34,1.56,.64,1) 0.9s forwards;
+    box-shadow: 3px 4px 0 var(--line);
+  }
+
+  @keyframes pop{ to{ transform: rotate(14deg) scale(1); } }
+
+  .card{
+    position:relative;
+    background: var(--cream);
+    border: 3px solid var(--line);
+    border-radius: 20px;
+    padding: 30px 28px 26px;
+    box-shadow: 8px 10px 0 var(--line);
+    transform: rotate(-1.5deg) translateY(14px);
+    opacity:0;
+    animation: rise 0.6s cubic-bezier(.22,1,.36,1) forwards;
+  }
+
+  @keyframes rise{
+    to{ opacity:1; transform: rotate(-1.5deg) translateY(0); }
+  }
+
+  .ribbon{
+    display:inline-block;
+    background: var(--pink);
+    border:2px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-family:'Mali', sans-serif;
+    font-weight:700;
+    font-size: 13px;
+    transform: rotate(-2deg);
+    margin-bottom: 18px;
+  }
+
+  h1{
+    font-family:'Mali', sans-serif;
+    font-weight:700;
+    font-size: clamp(30px, 8vw, 38px);
+    line-height:1.15;
+  }
+
+  .subtitle{
+    margin-top:6px;
+    font-size:14.5px;
+    color:#5B4B6B;
+  }
+
+  .divider{
+    margin: 20px 0 18px;
+    border-top: 2px dashed #D8CBE8;
+  }
+
+  .stat{ margin-bottom: 12px; }
+
+  .stat-label{
+    display:flex;
+    justify-content:space-between;
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
+  .stat-label b{ font-family:'Mali', sans-serif; }
+
+  .bar-track{
+    height: 12px;
+    background: #F0E6D6;
+    border: 2px solid var(--line);
+    border-radius: 999px;
+    overflow:hidden;
+  }
+
+  .bar-fill{
+    height:100%;
+    width:0%;
+    border-radius: 999px 0 0 999px;
+    animation: fill 1s cubic-bezier(.22,1,.36,1) forwards;
+    animation-delay: 0.4s;
+  }
+
+  .bar-fill.a{ background: var(--mint); }
+  .bar-fill.b{ background: var(--pink); }
+  .bar-fill.c{ background: var(--yellow); }
+  .bar-fill.d{ background: var(--purple); }
+
+  @keyframes fill{ to{ width: var(--w); } }
+
+  .quote{
+    margin-top: 20px;
+    background: #241A2E;
+    color: var(--cream);
+    border-radius: 16px 16px 16px 4px;
+    padding: 14px 16px;
+    font-family:'Mali', sans-serif;
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .card, .sticker, .bar-fill{ animation:none; opacity:1; transform:none; width:var(--w); }
+    .card{ transform: rotate(-1.5deg); }
+  }
+</style>
 </head>
 <body>
-    <h2>Supalerk Audomkasob</h2>
+  <div class="stage">
+    <div class="sticker">ผ่าน QC<br>100%</div>
+    <div class="card">
+      <span class="ribbon">🎮 ผู้เล่นใหม่เข้าร่วมเซิร์ฟเวอร์</span>
+      <h1>Supalerk<br>Audomkasob</h1>
+      <p class="subtitle">อาชีพ: มนุษย์ | เลเวล: กำลังโหลด... | เผ่าพันธุ์: ขี้เล่นแต่จริงจังตอนงานเข้า</p>
+
+      <div class="divider"></div>
+
+      <div class="stat">
+        <div class="stat-label"><b>พลังฮา</b><span>92%</span></div>
+        <div class="bar-track"><div class="bar-fill a" style="--w:92%"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label"><b>ความขยัน (เฉพาะตอนใกล้เดดไลน์)</b><span>78%</span></div>
+        <div class="bar-track"><div class="bar-fill b" style="--w:78%"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label"><b>ระดับติ่งกาแฟ</b><span>85%</span></div>
+        <div class="bar-track"><div class="bar-fill c" style="--w:85%"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label"><b>ความน่ารัก (self-report ไม่มี bias)</b><span>100%</span></div>
+        <div class="bar-track"><div class="bar-fill d" style="--w:100%"></div></div>
+      </div>
+
+      <div class="quote">"ยังไม่รู้จะพิมพ์อะไรแนะนำตัว เลยมาปั่นการ์ดเกมแทน ใครอ่านถึงตรงนี้ถือว่าเราเป็นเพื่อนกันแล้วนะ 😄"</div>
+    </div>
+  </div>
 </body>
 </html>
