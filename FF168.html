@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanaporpan</title>
+    <!-- นำเข้าฟอนต์สไตล์ไซไฟจาก Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ตั้งค่าธีมมืดพื้นหลังสไตล์ Cyberpunk */
+        body {
+            background-color: #0a0a0c;
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            /* ลายเส้นตารางพื้นหลังแบบไซไฟ */
+            background-image: 
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 6px 100%;
+        }
+
+        /* ตกแต่งหัวข้อเดิม */
+        h2 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            color: #fcee0a;
+            text-shadow: 3px 3px 0px #ff003c;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+        }
+
+        /* --- ปุ่มกดสไตล์ CYBERPUNK 2077 --- */
+        .cyber-btn {
+            --primary-color: #fcee0a; /* เหลือง */
+            --secondary-color: #00f0ff; /* ฟ้านีออน */
+            --shadow-color: #ff003c; /* แดง */
+            
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #000;
+            background-color: var(--primary-color);
+            padding: 18px 40px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s ease;
+            
+            /* ตัดมุมเฉียงสไตล์ Cyberpunk */
+            clip-path: polygon(0 0, 93% 0, 100% 30%, 100% 100%, 8% 100%, 0 70%);
+            box-shadow: 4px 4px 0px var(--shadow-color);
+        }
+
+        /* ตัวอักษรตกแต่งเล็กๆ มุมปุ่ม */
+        .cyber-btn::after {
+            content: 'N-77';
+            position: absolute;
+            bottom: 2px;
+            right: 15px;
+            font-size: 0.55rem;
+            color: var(--shadow-color);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* เอฟเฟกต์ตอน Hover (ชี้เมาส์) */
+        .cyber-btn:hover {
+            background-color: var(--secondary-color);
+            box-shadow: -4px -4px 0px var(--shadow-color);
+            transform: translate(3px, 3px);
+            /* สร้างเอฟเฟกต์สั่นไหว/ไฟกระพริบแบบ Glitch */
+            text-shadow: 2px 2px 0px var(--shadow-color);
+            animation: glitch 0.3s infinite;
+        }
+
+        /* ตอนคลิก */
+        .cyber-btn:active {
+            transform: translate(5px, 5px);
+            box-shadow: none;
+        }
+
+        /* Glitch Animation */
+        @keyframes glitch {
+            0% {
+                clip-path: polygon(0 0, 93% 0, 100% 30%, 100% 100%, 8% 100%, 0 70%);
+            }
+            50% {
+                clip-path: polygon(0 2%, 95% 0, 100% 28%, 100% 98%, 5% 100%, 0 72%);
+            }
+            100% {
+                clip-path: polygon(0 0, 93% 0, 100% 30%, 100% 100%, 8% 100%, 0 70%);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Tanapornpan apichonpuri 035</h2>
+    
+    <!-- ปุ่มกด Cyberpunk 2077 -->
+    <button class="cyber-btn">Initialize</button>
+
+</body>
+</html>
